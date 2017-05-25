@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--
+Copyright 2012 Mozilla Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Adobe CMap resources are covered by their own copyright but the same license:
+
+    Copyright 1990-2015 Adobe Systems Incorporated.
+
+See https://github.com/adobe-type-tools/cmap-resources
+-->
+<html dir="ltr" mozdisallowselectionprint="" moznomarginboxes=""><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PDF.js viewer</title>
+
+
+    <link rel="stylesheet" href="viewer_data/viewer.css">
+
+
+
+
+
+
+<script src="viewer_data/pdf.js"></script>
+
+
+  </head>
+
+  <body tabindex="1" class="">
+    <div id="outerContainer">
+
+      <div id="sidebarContainer">
+        <div id="toolbarSidebar">
+          <div class="splitToolbarButton toggled">
+            <button id="viewThumbnail" class="toolbarButton group toggled" title="Show Thumbnails" tabindex="2" data-l10n-id="thumbs">
+               <span data-l10n-id="thumbs_label">Thumbnails</span>
+            </button>
+            <button disabled="disabled" id="viewOutline" class="toolbarButton group" title="Show Document Outline" tabindex="3" data-l10n-id="outline">
+               <span data-l10n-id="outline_label">Document Outline</span>
+            </button>
+            <button disabled="disabled" id="viewAttachments" class="toolbarButton group" title="Show Attachments" tabindex="4" data-l10n-id="attachments">
+               <span data-l10n-id="attachments_label">Attachments</span>
+            </button>
+          </div>
+        </div>
+        <div id="sidebarContent">
+          <div id="thumbnailView">
+          <a title="Page 1" href="#page=1"><div class="thumbnail selected" id="thumbnailContainer1"><div style="width: 100px; height: 140px;" class="thumbnailSelectionRing"></div></div></a><a title="Page 2" href="#page=2"><div class="thumbnail" id="thumbnailContainer2"><div style="width: 100px; height: 140px;" class="thumbnailSelectionRing"></div></div></a><a title="Page 3" href="#page=3"><div class="thumbnail" id="thumbnailContainer3"><div style="width: 100px; height: 140px;" class="thumbnailSelectionRing"></div></div></a><a title="Page 4" href="#page=4"><div class="thumbnail" id="thumbnailContainer4"><div style="width: 100px; height: 140px;" class="thumbnailSelectionRing"></div></div></a><a title="Page 5" href="#page=5"><div class="thumbnail" id="thumbnailContainer5"><div style="width: 100px; height: 140px;" class="thumbnailSelectionRing"></div></div></a><a title="Page 6" href="#page=6"><div class="thumbnail" id="thumbnailContainer6"><div style="width: 100px; height: 140px;" class="thumbnailSelectionRing"></div></div></a></div>
+          <div id="outlineView" class="hidden"></div>
+          <div id="attachmentsView" class="hidden"></div>
+        </div>
+      </div>  <!-- sidebarContainer -->
+
+      <div id="mainContainer">
+        <div class="findbar hidden doorHanger hiddenSmallView" id="findbar">
+          <label for="findInput" class="toolbarLabel" data-l10n-id="find_label">Find:</label>
+          <input id="findInput" class="toolbarField" tabindex="91">
+          <div class="splitToolbarButton">
+            <button class="toolbarButton findPrevious" title="" id="findPrevious" tabindex="92" data-l10n-id="find_previous">
+              <span data-l10n-id="find_previous_label">Previous</span>
+            </button>
+            <div class="splitToolbarButtonSeparator"></div>
+            <button class="toolbarButton findNext" title="" id="findNext" tabindex="93" data-l10n-id="find_next">
+              <span data-l10n-id="find_next_label">Next</span>
+            </button>
+          </div>
+          <input id="findHighlightAll" class="toolbarField" tabindex="94" type="checkbox">
+          <label for="findHighlightAll" class="toolbarLabel" data-l10n-id="find_highlight">Highlight all</label>
+          <input id="findMatchCase" class="toolbarField" tabindex="95" type="checkbox">
+          <label for="findMatchCase" class="toolbarLabel" data-l10n-id="find_match_case_label">Match case</label>
+          <span id="findResultsCount" class="toolbarLabel hidden"></span>
+          <span id="findMsg" class="toolbarLabel"></span>
+        </div>  <!-- findbar -->
+
+        <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
+          <div style="max-height: 678px;" id="secondaryToolbarButtonContainer">
+            <button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView" title="Switch to Presentation Mode" tabindex="51" data-l10n-id="presentation_mode">
+              <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+            </button>
+
+            <!--<button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="52" data-l10n-id="open_file">-->
+              <!--<span data-l10n-id="open_file_label">Open</span>-->
+            <!--</button>-->
+
+            <button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="53" data-l10n-id="print">
+              <span data-l10n-id="print_label">Print</span>
+            </button>
+
+            <button id="secondaryDownload" class="secondaryToolbarButton download visibleMediumView" title="Download" tabindex="54" data-l10n-id="download">
+              <span data-l10n-id="download_label">Download</span>
+            </button>
+
+            <!--<a href="#" id="secondaryViewBookmark" class="secondaryToolbarButton bookmark visibleSmallView" title="Current view (copy or open in new window)" tabindex="55" data-l10n-id="bookmark">-->
+              <!--<span data-l10n-id="bookmark_label">Current View</span>-->
+            <!--</a>-->
+
+            <div class="horizontalToolbarSeparator visibleLargeView"></div>
+
+            <button disabled="disabled" id="firstPage" class="secondaryToolbarButton firstPage" title="Go to First Page" tabindex="56" data-l10n-id="first_page">
+              <span data-l10n-id="first_page_label">Go to First Page</span>
+            </button>
+            <button id="lastPage" class="secondaryToolbarButton lastPage" title="Go to Last Page" tabindex="57" data-l10n-id="last_page">
+              <span data-l10n-id="last_page_label">Go to Last Page</span>
+            </button>
+
+            <div class="horizontalToolbarSeparator"></div>
+
+            <button id="pageRotateCw" class="secondaryToolbarButton rotateCw" title="Rotate Clockwise" tabindex="58" data-l10n-id="page_rotate_cw">
+              <span data-l10n-id="page_rotate_cw_label">Rotate Clockwise</span>
+            </button>
+            <button id="pageRotateCcw" class="secondaryToolbarButton rotateCcw" title="Rotate Counterclockwise" tabindex="59" data-l10n-id="page_rotate_ccw">
+              <span data-l10n-id="page_rotate_ccw_label">Rotate Counterclockwise</span>
+            </button>
+
+            <div class="horizontalToolbarSeparator"></div>
+
+            <button id="toggleHandTool" class="secondaryToolbarButton handTool" title="Enable hand tool" tabindex="60" data-l10n-id="hand_tool_enable">
+              <span data-l10n-id="hand_tool_enable_label">Enable hand tool</span>
+            </button>
+
+            <div class="horizontalToolbarSeparator"></div>
+
+            <button id="documentProperties" class="secondaryToolbarButton documentProperties" title="Document Properties…" tabindex="61" data-l10n-id="document_properties">
+              <span data-l10n-id="document_properties_label">Document Properties…</span>
+            </button>
+          </div>
+        </div>  <!-- secondaryToolbar -->
+
+        <div class="toolbar">
+          <div id="toolbarContainer">
+            <div id="toolbarViewer">
+              <div id="toolbarViewerLeft">
+                <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar">
+                  <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
+                </button>
+                <div class="toolbarButtonSpacer"></div>
+                <button id="viewFind" class="toolbarButton group hiddenSmallView" title="Find in Document" tabindex="12" data-l10n-id="findbar">
+                   <span data-l10n-id="findbar_label">Find</span>
+                </button>
+                <div class="splitToolbarButton">
+                  <button disabled="disabled" class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="13" data-l10n-id="previous">
+                    <span data-l10n-id="previous_label">Previous</span>
+                  </button>
+                  <div class="splitToolbarButtonSeparator"></div>
+                  <button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="14" data-l10n-id="next">
+                    <span data-l10n-id="next_label">Next</span>
+                  </button>
+                </div>
+                <label id="pageNumberLabel" class="toolbarLabel" for="pageNumber" data-l10n-id="page_label">Page: </label>
+                <input max="6" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="15" type="number">
+                <span id="numPages" class="toolbarLabel">of 6</span>
+              </div>
+              <div id="toolbarViewerRight">
+                <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">
+                  <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+                </button>
+
+                <!--<button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="32" data-l10n-id="open_file">-->
+                  <!--<span data-l10n-id="open_file_label">Open</span>-->
+                <!--</button>-->
+
+                <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33" data-l10n-id="print">
+                  <span data-l10n-id="print_label">Print</span>
+                </button>
+
+                <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="34" data-l10n-id="download">
+                  <span data-l10n-id="download_label">Download</span>
+                </button>
+                <!--<a href="#" id="viewBookmark" class="toolbarButton bookmark hiddenSmallView" title="Current view (copy or open in new window)" tabindex="35" data-l10n-id="bookmark">-->
+                  <!--<span data-l10n-id="bookmark_label">Current View</span>-->
+                <!--</a>-->
+
+                <div class="verticalToolbarSeparator hiddenSmallView"></div>
+
+                <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="36" data-l10n-id="tools">
+                  <span data-l10n-id="tools_label">Tools</span>
+                </button>
+              </div>
+              <div class="outerCenter">
+                <div class="innerCenter" id="toolbarViewerMiddle">
+                  <div class="splitToolbarButton">
+                    <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="21" data-l10n-id="zoom_out">
+                      <span data-l10n-id="zoom_out_label">Zoom Out</span>
+                    </button>
+                    <div class="splitToolbarButtonSeparator"></div>
+                    <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="22" data-l10n-id="zoom_in">
+                      <span data-l10n-id="zoom_in_label">Zoom In</span>
+                     </button>
+                  </div>
+                  <span style="min-width: 124px; max-width: 124px;" id="scaleSelectContainer" class="dropdownToolbarButton">
+                     <select style="min-width: 146px;" id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
+                      <option id="pageAutoOption" title="" value="auto" selected="selected" data-l10n-id="page_scale_auto">Automatic Zoom</option>
+                      <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">Actual Size</option>
+                      <option id="pageFitOption" title="" value="page-fit" data-l10n-id="page_scale_fit">Fit Page</option>
+                      <option id="pageWidthOption" title="" value="page-width" data-l10n-id="page_scale_width">Full Width</option>
+                      <option id="customScaleOption" title="" value="custom"></option>
+                      <option title="" value="0.5" data-l10n-id="page_scale_percent" data-l10n-args="{ &quot;scale&quot;: 50 }">50%</option>
+                      <option title="" value="0.75" data-l10n-id="page_scale_percent" data-l10n-args="{ &quot;scale&quot;: 75 }">75%</option>
+                      <option title="" value="1" data-l10n-id="page_scale_percent" data-l10n-args="{ &quot;scale&quot;: 100 }">100%</option>
+                      <option title="" value="1.25" data-l10n-id="page_scale_percent" data-l10n-args="{ &quot;scale&quot;: 125 }">125%</option>
+                      <option title="" value="1.5" data-l10n-id="page_scale_percent" data-l10n-args="{ &quot;scale&quot;: 150 }">150%</option>
+                      <option title="" value="2" data-l10n-id="page_scale_percent" data-l10n-args="{ &quot;scale&quot;: 200 }">200%</option>
+                      <option title="" value="3" data-l10n-id="page_scale_percent" data-l10n-args="{ &quot;scale&quot;: 300 }">300%</option>
+                      <option title="" value="4" data-l10n-id="page_scale_percent" data-l10n-args="{ &quot;scale&quot;: 400 }">400%</option>
+                    </select>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div style="width: calc(100% - 17px);" class="hidden" id="loadingBar">
+              <div style="height: 100%; width: 100%;" class="progress">
+                <div class="glimmer">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <menu type="context" id="viewerContextMenu">
+          <menuitem id="contextFirstPage" label="First Page" data-l10n-id="first_page"></menuitem>
+          <menuitem id="contextLastPage" label="Last Page" data-l10n-id="last_page"></menuitem>
+          <menuitem id="contextPageRotateCw" label="Rotate Clockwise" data-l10n-id="page_rotate_cw"></menuitem>
+          <menuitem id="contextPageRotateCcw" label="Rotate Counter-Clockwise" data-l10n-id="page_rotate_ccw"></menuitem>
+        </menu>
+
+        <div id="viewerContainer" tabindex="0">
+          <div id="viewer" class="pdfViewer"><div data-loaded="true" data-page-number="1" style="width: 923px; height: 1304px;" class="page" id="pageContainer1"><div class="canvasWrapper" style="width: 923px; height: 1304px;"><canvas style="width: 923px; height: 1305px;" height="1305" width="923" moz-opaque="" id="page1"></canvas></div><div style="width: 923px; height: 1304px;" class="textLayer"><div data-canvas-width="243.90116888351469" style="left: 178.976px; top: 84.7808px; font-size: 37.2027px; font-family: sans-serif; transform: scaleX(0.89352);">Enhancing the P</div><div data-canvas-width="211.0139459895203" style="left: 422.887px; top: 84.7808px; font-size: 37.2027px; font-family: sans-serif; transform: scaleX(0.927942);">hysical Layer </div><div data-canvas-width="119.68121725110841" style="left: 633.904px; top: 84.7808px; font-size: 37.2027px; font-family: sans-serif; transform: scaleX(0.997898);">in V2V </div><div data-canvas-width="463.8437726723095" style="left: 72.3593px; top: 127.595px; font-size: 37.2027px; font-family: sans-serif; transform: scaleX(0.938955);">Communication Using OFDM </div><div style="left: 536.386px; top: 127.595px; font-size: 37.2027px; font-family: sans-serif;">–</div><div data-canvas-width="286.31229343006845" style="left: 564.288px; top: 127.595px; font-size: 37.2027px; font-family: sans-serif; transform: scaleX(0.955223);">MIMO Techniques</div><div data-canvas-width="106.22200967351874" style="left: 272.588px; top: 203.533px; font-size: 17.1133px; font-family: sans-serif; transform: scaleX(0.90788);">Ahmad Baheej </div><div data-canvas-width="275.93421684804514" style="left: 378.801px; top: 203.533px; font-size: 17.1133px; font-family: sans-serif; transform: scaleX(0.956666);">Al-Khalil, Ali Al-Sherbaz, Scott Turner </div><div data-canvas-width="223.94468863361553" style="left: 353.504px; top: 226.231px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.915867);">School of Science and Technology  </div><div data-canvas-width="200.69334764207989" style="left: 363.176px; top: 244.088px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.939796);">The University of Northampton </div><div data-canvas-width="283.2772938331318" style="left: 325.602px; top: 261.945px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.91829);">St. George Avenue, Northampton NN2 6JD   </div><div data-canvas-width="414.8805014107215" style="left: 255.986px; top: 279.803px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.92621);">{ahmad.al-khalil, ali.al-sherbaz, scott.turner}@northampton.ac.uk </div><div data-canvas-width="51.70250906892382" style="left: 78.1258px; top: 315.727px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.923259);">Abstract </div><div data-canvas-width="319.1018591293833" style="left: 131.735px; top: 315.727px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.941303);">-  Vehicular  Ad  hoc  network  (VANET)  has  recently </div><div data-canvas-width="393.79566203143906" style="left: 56.9202px; top: 331.91px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.880975);">been  attracting  the  attention  of  researchers  as  a  new  technology </div><div data-canvas-width="310.81959895203556" style="left: 56.9202px; top: 347.908px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.956368);">in  the  wireless  communication  system.  Vehicle-to</div><div data-canvas-width="83.59455864570737" style="left: 367.455px; top: 347.908px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.960857);">-vehicle  V2V </div><div data-canvas-width="394.0467805320436" style="left: 56.9202px; top: 363.905px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.901709);">communication  can  be  considered  an  important  way  to  help  the </div><div data-canvas-width="393.75380894800503" style="left: 56.9202px; top: 379.902px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.890846);">drivers  to  satisfy  requirements  such  as  less  congestion,  accident </div><div data-canvas-width="393.8235640870617" style="left: 56.9202px; top: 396.085px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.911629);">warning,  road  exploration,  etc.  The  propagation  issues  such  as </div><div data-canvas-width="393.8654171704957" style="left: 56.9202px; top: 412.082px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.972507);">multipath   fading   significantly   affect   the   reliability   of   V2V </div><div data-canvas-width="102.6656136638452" style="left: 56.9202px; top: 428.126px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.968544);">communication.  </div><div data-canvas-width="372.50639359129394" style="left: 78.1258px; top: 459.748px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.895448);">The  goal  of  this  work  is  to  enhance  the  performance  of  the </div><div data-canvas-width="393.9351723095526" style="left: 56.9202px; top: 475.746px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.963167);">physical   layer   PHY   in   V2V   communication.   However,   the </div><div data-canvas-width="393.6142986698913" style="left: 56.9202px; top: 491.743px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.928336);">cellular phone channel has been used to evaluate the possibility of </div><div data-canvas-width="393.8096130592501" style="left: 56.9202px; top: 507.74px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.96522);">apply  it  in  the  vehicular  communication  V2V.  The  simulation </div><div data-canvas-width="393.8235640870615" style="left: 56.9202px; top: 523.923px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.955882);">results  observed  that  the  transmitted  signal  is  affected  by  a </div><div data-canvas-width="393.76775997581615" style="left: 56.9202px; top: 539.92px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.977091);">multipath fading channel. In order to overcome this problem two </div><div data-canvas-width="66.90912938331317" style="left: 56.9202px; top: 555.917px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.916563);">techniques </div><div data-canvas-width="22.64251813784764" style="left: 139.273px; top: 555.917px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.905701);">are </div><div data-canvas-width="35.10078597339782" style="left: 177.569px; top: 555.917px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.90002);">used: </div><div data-canvas-width="72.23842200725514" style="left: 228.141px; top: 555.917px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.963179);">Orthogonal </div><div data-canvas-width="67.0625906892382" style="left: 315.879px; top: 555.917px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.931425);">Frequency </div><div data-canvas-width="52.372158403869406" style="left: 398.413px; top: 555.917px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.988154);">Division </div><div data-canvas-width="390.7264359129382" style="left: 56.9202px; top: 571.915px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(1.01752);">Multiplexing  (OFDM)  technique  and  Multiple-Input-Multiple-</div><div data-canvas-width="393.83751511487293" style="left: 56.9202px; top: 588.098px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.953602);">Output   (MIMO)   diversity   technique.   The   simulation   results </div><div data-canvas-width="393.8235640870617" style="left: 56.9202px; top: 604.095px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.918004);">showed   that   the   OFDM   technique   overcomes   the   multipath </div><div data-canvas-width="393.7817110036278" style="left: 56.9202px; top: 620.092px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.989401);">fading with high transmission power.  On the other hand, MIMO </div><div data-canvas-width="316.10238814993943" style="left: 56.9202px; top: 636.089px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.957886);">diversity  technique  called  Alamouti  Space-Time  C</div><div data-canvas-width="78.02809854897217" style="left: 373.035px; top: 636.089px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.951562);">ode  for  two </div><div data-canvas-width="393.76775997581603" style="left: 56.9202px; top: 652.273px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.928698);">transmitters  and  two  receivers  (MIMO  2x2)  is  used  to  improve </div><div data-canvas-width="310.8568016928658" style="left: 56.9202px; top: 668.27px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.959435);">the error degradation with less transmission power. </div><div data-canvas-width="55.80411124546554" style="left: 78.1258px; top: 699.892px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.914822);">Keywords</div><div style="left: 133.967px; top: 699.892px; font-size: 13.951px; font-family: sans-serif;">—</div><div data-canvas-width="295.39906287787164" style="left: 147.918px; top: 699.892px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(1.02214);"> VANET; V2V; DSRC; OFDM; MIMO; Alamouti. </div><div data-canvas-width="9.135257020018809" style="left: 193.299px; top: 735.986px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.06637);">I.</div><div style="left: 228.828px; top: 735.986px; font-size: 15.4391px; font-family: sans-serif;">I</div><div data-canvas-width="92.35022370012088" style="left: 234.036px; top: 738.638px; font-size: 12.4629px; font-family: sans-serif; transform: scaleX(1.00381);">NTRODUCTION </div><div data-canvas-width="372.006016727126" style="left: 79.2418px; top: 759.982px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.892493);">Nowadays    the    use    of    electronic    technologies    and </div><div data-canvas-width="394.3001311970979" style="left: 56.9202px; top: 777.839px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.901464);">communication devices are used by the manufacturers to make </div><div data-canvas-width="394.1303006852076" style="left: 56.9202px; top: 795.51px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.928385);">the trip more comfortable and safer in the automobile industry </div><div data-canvas-width="152.32253002821443" style="left: 56.9202px; top: 813.367px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.906053);">has  grown  significantly </div><div data-canvas-width="18.125547359935506" style="left: 211.715px; top: 813.367px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.05688);">[1]</div><div data-canvas-width="221.5361831922612" style="left: 229.758px; top: 813.367px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.863633);">.  Technologies  have  been  adopted </div><div data-canvas-width="236.45038996372435" style="left: 56.9202px; top: 831.225px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.864272);">by  vehicle  manufacturers  for  decades</div><div data-canvas-width="23.55231116485288" style="left: 293.421px; top: 831.225px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.915838);">  [2]</div><div data-canvas-width="134.36681318016932" style="left: 317.045px; top: 831.225px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.870157);">,  while  adopting  and </div><div data-canvas-width="394.3464486094317" style="left: 56.9202px; top: 849.082px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.889336);">integrating   wireless   communications   technologies   such   as </div><div data-canvas-width="364.82681781539713" style="left: 56.9202px; top: 866.939px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.925291);">vehicular ad hoc networks VANET is a relatively new area</div><div data-canvas-width="21.878187827488915" style="left: 422.143px; top: 866.939px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.02076);"> [3]</div><div data-canvas-width="7.440548166062072" style="left: 443.937px; top: 866.939px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.868546);">. </div><div data-canvas-width="394.3773268843207" style="left: 56.9202px; top: 884.611px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.893402);">VANET  is  a  technology  which  uses  the  moving  vehicles  as </div><div data-canvas-width="128.26835388956064" style="left: 56.9202px; top: 902.468px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.859419);">nodes  in  the  wireles</div><div data-canvas-width="265.83106852075787" style="left: 185.301px; top: 902.468px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.835509);">s  network.  It  can  also  be  considered  as  a </div><div data-canvas-width="173.9990790004031" style="left: 56.9202px; top: 920.325px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.913781);">form of advanced mobile ad</div><div data-canvas-width="220.0741154776299" style="left: 231.246px; top: 920.325px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.897163);">-hoc network, as it is instantaneous </div><div data-canvas-width="72.6565808141878" style="left: 56.9202px; top: 938.183px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.910674);">and  mobile</div><div data-canvas-width="25.582278718258763" style="left: 129.689px; top: 938.183px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.994774);">  [4]</div><div data-canvas-width="296.07633877468766" style="left: 155.166px; top: 938.183px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.926348);">.  An  important  advantage  of  VANET  is  the </div><div data-canvas-width="327.43322692462715" style="left: 56.9202px; top: 956.04px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.906682);">unlimited battery power generated during the journey</div><div data-canvas-width="21.862004635227727" style="left: 384.382px; top: 956.04px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.02);"> [5]</div><div data-canvas-width="11.486346231358322" style="left: 406.145px; top: 956.04px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.893879);">.  </div><div data-canvas-width="394.08398327287387" style="left: 56.9202px; top: 983.198px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.907644);">VANET    could    be    represented    by    different    forms    of </div><div data-canvas-width="128.12940165255947" style="left: 56.9202px; top: 1000.87px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.939365);">topologies:  vehicle-</div><div data-canvas-width="192.86775110842407" style="left: 185.115px; top: 1000.87px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.964982);">to-vehicle  V2V  and  vehicle-</div><div data-canvas-width="73.5386577992745" style="left: 377.871px; top: 1000.87px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.902499);">to-roadside </div><div data-canvas-width="33.07063240628779" style="left: 56.9202px; top: 1018.77px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.96369);">V2R </div><div data-canvas-width="18.125547359935506" style="left: 98.9965px; top: 1018.77px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.05688);">[6]</div><div data-canvas-width="7.812575574365175" style="left: 117.226px; top: 1018.77px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.911974);">. </div><div data-canvas-width="317.28971362353894" style="left: 133.967px; top: 1018.77px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.915875);">Researchers   aim   to   produce   a   full   wireless </div><div data-canvas-width="99.44348428053203" style="left: 56.9202px; top: 1036.63px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.920205);">communication </div><div data-canvas-width="53.11063280935106" style="left: 172.204px; top: 1036.63px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.923931);">solution </div><div data-canvas-width="45.51457718661829" style="left: 240.97px; top: 1036.63px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.884351);">among </div><div data-canvas-width="22.201479645304314" style="left: 302.325px; top: 1036.63px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.892223);">veh</div><div data-canvas-width="35.849677146311976" style="left: 324.671px; top: 1036.63px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.908737);">icles, </div><div data-canvas-width="15.747920193470376" style="left: 376.362px; top: 1036.63px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.918246);">to </div><div data-canvas-width="43.46117190648932" style="left: 407.95px; top: 1036.63px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.905127);">satisfy </div><div data-canvas-width="394.3155703345426" style="left: 56.9202px; top: 1054.49px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.86419);">requirements  such  as  less  congestion,  accident  warning,  road </div><div data-canvas-width="394.2383746473196" style="left: 56.9202px; top: 1072.34px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.921154);">exploration,  etc.  These  requirements   will  not  be  achieved </div><div data-canvas-width="394.16117896009683" style="left: 56.9202px; top: 1090.2px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.915483);">unless there are applications that benefit from them. Therefore </div><div data-canvas-width="380.3431509471988" style="left: 475.56px; top: 315.331px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.926386);">VANET  applications  are  classified  in  two  main  categorie</div><div data-canvas-width="13.910662837565498" style="left: 856.221px; top: 315.331px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.854288);">s: </div><div data-canvas-width="394.26925292220886" style="left: 475.56px; top: 333.189px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.882429);">safety  and  comfort  applications  that  have  attracted  the  most </div><div data-canvas-width="169.86139016525593" style="left: 475.56px; top: 351.046px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.888087);">attention  during  the  years </div><div data-canvas-width="17.785886336154775" style="left: 648.785px; top: 351.046px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.03708);">[7]</div><div data-canvas-width="203.20992704554618" style="left: 666.642px; top: 351.046px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.884098);">.  These  requirements  could  be </div><div data-canvas-width="398.02096332124165" style="left: 475.56px; top: 368.903px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.871229);">assured,  based  on  the  three  VANET  components,  which  are:  </div><div data-canvas-width="274.81664651350246" style="left: 475.56px; top: 386.76px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.918045);">the available wireless infrastructures techno</div><div data-canvas-width="65.80160378879485" style="left: 750.72px; top: 386.76px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.971241);">logies (Wi</div><div data-canvas-width="53.3005528012898" style="left: 816.786px; top: 386.76px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.956636);">-Fi, 3G, </div><div data-canvas-width="393.9913484482064" style="left: 475.56px; top: 404.618px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.951134);">GSM and WiMAX), on board units (OBUs) devices and road </div><div data-canvas-width="160.42807718661834" style="left: 475.56px; top: 422.289px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.907998);">side units (RSUs) devices</div><div data-canvas-width="22.4038625554212" style="left: 636.136px; top: 422.289px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.04528);"> [7]</div><div data-canvas-width="211.19196110439336" style="left: 658.643px; top: 422.289px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.936135);">. The motorway will be equipped </div><div data-canvas-width="394.0994224103184" style="left: 475.56px; top: 440.193px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.926276);">with communication RSU devices which could be operated by </div><div data-canvas-width="225.7201894397421" style="left: 475.56px; top: 458.05px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.910897);">government   or   a   private   sector </div><div data-canvas-width="160.19649012494963" style="left: 709.797px; top: 458.05px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.929304);">that   allow   vehicles   to </div><div data-canvas-width="394.1611789600967" style="left: 475.56px; top: 475.908px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.887317);">communicate   and/or   to   access   the   internet   though   OBU </div><div data-canvas-width="394.0376658605401" style="left: 475.56px; top: 493.765px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.955243);">devices. This paper is first a feasibly study of utilising MIMO </div><div data-canvas-width="394.0839832728739" style="left: 475.56px; top: 511.622px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.933922);">and  OFDM  in  the  PHY  layer  in  V2V  communication  and </div><div data-canvas-width="350.2831503426038" style="left: 475.56px; top: 529.294px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.928723);">second evaluation based on MATLAB simulation result.</div><div data-canvas-width="23.946102176541714" style="left: 497.509px; top: 565.008px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.900229);">The</div><div data-canvas-width="43.06291656590085" style="left: 521.505px; top: 565.008px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.896522);"> paper </div><div data-canvas-width="304.2282033454252" style="left: 565.404px; top: 565.008px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.943392);">is organized as follows. In Section II, important </div><div data-canvas-width="394.00678758565084" style="left: 475.56px; top: 582.865px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.941962);">general   background   information   on   VANET   and   IEEE </div><div data-canvas-width="394.0685441354293" style="left: 475.56px; top: 600.723px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.876227);">802.11p  standards  is  provided.  Next,  different  techniques  are </div><div data-canvas-width="394.1148615477632" style="left: 475.56px; top: 618.58px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.952007);">explained such OFDM and the benefit of MIMO in VANET in </div><div data-canvas-width="278.95433534864964" style="left: 475.56px; top: 636.251px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.903447);">same  section.  The  wireless  channel  mode</div><div data-canvas-width="115.16052619911325" style="left: 754.813px; top: 636.251px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.91969);">l  is  discussed  in </div><div data-canvas-width="394.0685441354293" style="left: 475.56px; top: 654.109px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.902068);">Section  III.  Simulation  Results  are  presented  in  Section  IV. </div><div data-canvas-width="362.69621684804525" style="left: 475.56px; top: 671.966px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.919771);">Finally, Section V and VI discuss and conclude this paper.</div><div data-canvas-width="14.343609733978234" style="left: 603.537px; top: 702.286px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.11623);">II.</div><div data-canvas-width="113.2306340185409" style="left: 638.554px; top: 702.286px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.985185);">BACKGROUND </div><div data-canvas-width="13.399745196829235" style="left: 475.56px; top: 729.475px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.91884);">A.</div><div data-canvas-width="193.45239218057236" style="left: 497.881px; top: 729.475px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.910578);">DSRC and VANET Standard    </div><div data-canvas-width="372.268482063684" style="left: 497.509px; top: 751.797px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.893123);">Dedicated   Short   Range   Communication   DSRC   is   the </div><div data-canvas-width="214.82015840386947" style="left: 475.56px; top: 769.654px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.910834);">wireless  communication  protocol </div><div data-canvas-width="177.05602821442963" style="left: 692.87px; top: 769.654px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.897698);">for  the  vehicular  networks, </div><div data-canvas-width="274.64681600161225" style="left: 475.56px; top: 787.512px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.870099);">established   in   the   United   State   in   1992</div><div data-canvas-width="27.984273679967757" style="left: 750.348px; top: 787.512px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.932809);">   [8]</div><div data-canvas-width="91.80111124546553" style="left: 778.25px; top: 787.512px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.870428);">.   DSRC   was </div><div data-canvas-width="394.1303006852075" style="left: 475.56px; top: 805.369px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.930247);">approved   by   the   United   State   Federal   Communication </div><div data-canvas-width="394.03766586053996" style="left: 475.56px; top: 823.04px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.876353);">Commission  FCC  to  support  the  Intelligent  Transport  System </div><div data-canvas-width="227.44937283353482" style="left: 475.56px; top: 840.897px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.889865);">ITS  applications  in  the  short  range</div><div data-canvas-width="159.964903063281" style="left: 709.983px; top: 840.897px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.909925);">communication  for  such </div><div data-canvas-width="393.94503103587255" style="left: 475.56px; top: 858.755px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.919251);">VANETs.  In  2004,  the  DSRC  joined  the  IEEE  (Institute  of </div><div data-canvas-width="394.02222672309557" style="left: 475.56px; top: 876.612px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.924176);">Engineering Electrical and Electronics) and classified as IEEE </div><div data-canvas-width="100.23088029020555" style="left: 475.56px; top: 894.469px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.874107);">802.11  standard</div><div data-canvas-width="23.333931076178956" style="left: 576.007px; top: 894.469px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.907347);">  [9]</div><div data-canvas-width="270.15402700523975" style="left: 599.445px; top: 894.469px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.853747);">.    IEEE  produced  the  Wireless  Access  for </div><div data-canvas-width="156.25951007658205" style="left: 475.56px; top: 912.327px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.934194);">Vehicular   Environment </div><div data-canvas-width="231.13932668278923" style="left: 638.74px; top: 912.327px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.919835);">WAVE,   which   is   considered   the </div><div data-canvas-width="26.7251469165659" style="left: 475.56px; top: 929.998px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.890344);">core</div><div data-canvas-width="154.40699959693674" style="left: 502.346px; top: 929.998px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.932785);"> of the DSRC for vehicle</div><div data-canvas-width="168.44098952035472" style="left: 656.969px; top: 929.998px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.909263);">s fast moving, as shown in </div><div data-canvas-width="44.32576360338573" style="left: 825.715px; top: 929.998px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.922813);">Figure </div><div data-canvas-width="15.62515114873035" style="left: 475.56px; top: 947.855px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.911088);">1. </div><div data-canvas-width="25.752481257557434" style="left: 491.185px; top: 947.855px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(1.00074);">[10]</div><div data-canvas-width="11.486346231358322" style="left: 517.041px; top: 947.855px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.893879);">.  </div><div data-canvas-width="372.17584723901655" style="left: 497.509px; top: 983.57px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.925312);">The   architecture   of   the   WAVE   contains   both   IEEE </div><div data-canvas-width="393.94503103587255" style="left: 475.56px; top: 1001.43px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.884342);">802.11p   and   IEEE   1609   standards,   IEEE   802.11p   which </div><div data-canvas-width="278.3367698508666" style="left: 475.56px; top: 1019.33px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.86543);">release   the   physical   layer   PHY   and   the </div><div data-canvas-width="109.98841515517937" style="left: 760.021px; top: 1019.33px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.903272);">Medium   Access </div><div data-canvas-width="87.8178137847642" style="left: 475.56px; top: 1037px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.914293);">Control   layer</div><div data-canvas-width="296.5858303103588" style="left: 573.217px; top: 1037px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.908426);">MAC   specifications   to   enable   the   VANET </div><div data-canvas-width="350.11331983071346" style="left: 475.56px; top: 1054.86px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.881787);">communication  in  the  5.9  GHz  spectrum,  whereas  the</div><div data-canvas-width="37.64061708988311" style="left: 832.411px; top: 1054.86px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.953732);">IEEE </div><div data-canvas-width="389.85365961305916" style="left: 475.56px; top: 1072.72px; font-size: 15.4391px; font-family: sans-serif; transform: scaleX(0.913113);">1609 cooperates with the IEEE 802.11p standards develop the</div><div data-canvas-width="40.31847037484884" style="left: 55.8041px; top: 1226.36px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(1.06101);">ISBN: </div><div data-canvas-width="123.2991837968561" style="left: 96.1179px; top: 1226.36px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.963275);">978-1-902560-27-4 </div><div data-canvas-width="49.06111446997178" style="left: 219.442px; top: 1226.36px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(0.981222);">© 2013 </div><div data-canvas-width="45.745420193470366" style="left: 268.509px; top: 1226.36px; font-size: 13.951px; font-family: sans-serif; transform: scaleX(1.01656);">PGNet </div><div class="endOfContent"></div></div></div><div data-loaded="true" data-page-number="2" style="width: 923px; height: 1304px;" class="page" id="pageContainer2"><div class="loadingIcon"></div><div class="canvasWrapper" style="width: 923px; height: 1304px;"><canvas style="width: 923px; height: 1305px;" height="1305" width="923" moz-opaque="" id="page2"></canvas></div><div style="width: 923px; height: 1304px;" class="textLayer"></div></div><div data-page-number="3" style="width: 923px; height: 1304px;" class="page" id="pageContainer3"><div class="loadingIcon"></div></div><div data-page-number="4" style="width: 923px; height: 1304px;" class="page" id="pageContainer4"><div class="loadingIcon"></div></div><div data-page-number="5" style="width: 923px; height: 1304px;" class="page" id="pageContainer5"><div class="loadingIcon"></div></div><div data-page-number="6" style="width: 923px; height: 1304px;" class="page" id="pageContainer6"><div class="loadingIcon"></div></div></div>
+        </div>
+
+        <div id="errorWrapper" hidden="true">
+          <div id="errorMessageLeft">
+            <span id="errorMessage"></span>
+            <button id="errorShowMore" data-l10n-id="error_more_info">
+              More Information
+            </button>
+            <button id="errorShowLess" data-l10n-id="error_less_info" hidden="true">
+              Less Information
+            </button>
+          </div>
+          <div id="errorMessageRight">
+            <button id="errorClose" data-l10n-id="error_close">
+              Close
+            </button>
+          </div>
+          <div class="clearBoth"></div>
+          <textarea id="errorMoreInfo" readonly="readonly" hidden="true"></textarea>
+        </div>
+      </div> <!-- mainContainer -->
+
+      <div id="overlayContainer" class="hidden">
+        <div id="passwordOverlay" class="container hidden">
+          <div class="dialog">
+            <div class="row">
+              <p id="passwordText" data-l10n-id="password_label">Enter the password to open this PDF file:</p>
+            </div>
+            <div class="row">
+              <input id="password" class="toolbarField" type="password">
+            </div>
+            <div class="buttonRow">
+              <button id="passwordCancel" class="overlayButton"><span data-l10n-id="password_cancel">Cancel</span></button>
+              <button id="passwordSubmit" class="overlayButton"><span data-l10n-id="password_ok">OK</span></button>
+            </div>
+          </div>
+        </div>
+        <div id="documentPropertiesOverlay" class="container hidden">
+          <div class="dialog">
+            <div class="row">
+              <span data-l10n-id="document_properties_file_name">File name:</span> <p id="fileNameField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_file_size">File size:</span> <p id="fileSizeField">-</p>
+            </div>
+            <div class="separator"></div>
+            <div class="row">
+              <span data-l10n-id="document_properties_title">Title:</span> <p id="titleField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_author">Author:</span> <p id="authorField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_subject">Subject:</span> <p id="subjectField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_keywords">Keywords:</span> <p id="keywordsField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_creation_date">Creation Date:</span> <p id="creationDateField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_modification_date">Modification Date:</span> <p id="modificationDateField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_creator">Creator:</span> <p id="creatorField">-</p>
+            </div>
+            <div class="separator"></div>
+            <div class="row">
+              <span data-l10n-id="document_properties_producer">PDF Producer:</span> <p id="producerField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_version">PDF Version:</span> <p id="versionField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_page_count">Page Count:</span> <p id="pageCountField">-</p>
+            </div>
+            <div class="buttonRow">
+              <button id="documentPropertiesClose" class="overlayButton"><span data-l10n-id="document_properties_close">Close</span></button>
+            </div>
+          </div>
+        </div>
+      </div>  <!-- overlayContainer -->
+
+    </div> <!-- outerContainer -->
+    <div id="printContainer"></div>
+<div id="mozPrintCallback-shim" hidden="">
+  <style>
+@media print {
+  #printContainer div {
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+}
+  </style>
+  <style scoped="">
+#mozPrintCallback-shim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999999;
+
+  display: block;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#mozPrintCallback-shim[hidden] {
+  display: none;
+}
+@media print {
+  #mozPrintCallback-shim {
+    display: none;
+  }
+}
+
+#mozPrintCallback-shim .mozPrintCallback-dialog-box {
+  display: inline-block;
+  margin: -50px auto 0;
+  position: relative;
+  top: 45%;
+  left: 0;
+  min-width: 220px;
+  max-width: 400px;
+
+  padding: 9px;
+
+  border: 1px solid hsla(0, 0%, 0%, .5);
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
+  background-color: #474747;
+
+  color: hsl(0, 0%, 85%);
+  font-size: 16px;
+  line-height: 20px;
+}
+#mozPrintCallback-shim .progress-row {
+  clear: both;
+  padding: 1em 0;
+}
+#mozPrintCallback-shim progress {
+  width: 100%;
+}
+#mozPrintCallback-shim .relative-progress {
+  clear: both;
+  float: right;
+}
+#mozPrintCallback-shim .progress-actions {
+  clear: both;
+}
+  </style>
+  <div class="mozPrintCallback-dialog-box">
+    <!-- TODO: Localise the following strings -->
+    Preparing document for printing...
+    <div class="progress-row">
+      <progress value="0" max="100"></progress>
+      <span class="relative-progress">0%</span>
+    </div>
+    <div class="progress-actions">
+      <input value="Cancel" class="mozPrintCallback-cancel" type="button">
+    </div>
+  </div>
+</div>
+
+  
+
+
+<input class="fileInput" id="fileInput" type="file"></body></html>

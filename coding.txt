@@ -1,0 +1,160 @@
+PROGRAM CODE
+/* -------------------------------------------------------------------------------
+* File:   andiradiance_headlight_main.c
+--------------------------------------------------------------------------------- */
+#include <stdio.h>
+#include <stdlib.h>
+#include <xc.h>
+#include <stdint.h>
+#include "adc.h"
+#include "config.h"
+#include "delay_ver2.h"
+#include "lcd_20x4_v2.h"
+ /*------------------------------Macro function---------------------------*/
+/*-----macro for RF Transceiver----*/
+#define RF_MEDIUM PORTB
+#define SEND_HIGH_BRIGHT1 0x01
+#define SEND_HIGH_BRIGHT2 0x02
+#define NONE 0x00
+/*--------macro for LCD-----*/
+#define LDR_INDEX 1
+#define LDR_ADDR 4
+#define IR_PAIR RC3
+#define ENABLE_RF RC6
+#define ENABLE_RF1 RB7
+#define HIGH 1
+#define LOW 0
+#define EYE_CLOSED ( IR_PAIR == LOW )
+#define LIGHT_THRESHOLD 60
+ #define HIGH_LIGHT (ldr_val > LIGHT_THRESHOLD)
+/*---conditional directive-----*/
+#define NODE1_ENABLE 1
+#define NODE2_ENABLE 0
+/*--------------------prototype function declaration-----------------------------*/
+void  timer0_init(void);
+void soft_pwm_dutycycle(uint8_t dutycycle);
+/*-------------------Global variable declaration---------------------------------*/
+static volatile unsigned char pwm_dutycycle = 0;
+static volatile unsigned long count;
+/*--------------------------------------------------------------------------------*/
+int main() {
+/*-----Port and local variable declaration----*/
+uint8_t ldr_val=0;
+uint8_t light_dim_flag1 =0,light_dim_flag2 =0;
+/*------ iniitializing RF pair--- */
+TRISB = 0x30; ////LSB bit set as output for txmiting signal
+// RB4 -> MSB bits set as input for receiving rf signal
+PORTB = 0x00;
+/*------pwm_init-------*/
+TRISC1 = 0;//LED array//head light
+TRISC0 = 0;
+RC0=0;
+timer0_init();
+TRISC3 =1; // ir pair
+TRISC6= 0;
+ENABLE_RF =HIGH;
+/*-------initializing lcd ----------*/
+lcd_init();
+lcd_fix_num(LDR_INDEX,LDR_ADDR);
+lcd_print(1,(uint8_t*) "ANDIRADIANCE");
+#if NODE1_ENABLE
+    lcd_print(17,(uint8_t*)"HEADLIGHT  N:1");
+#elif NODE2_ENABLE
+    lcd_print(17,(uint8_t*)"HEADLIGHT  N:2");
+#endif
+delayMs(2000);
+lcd_clrscr();
+/*----initializing adc---*/
+adc_init();
+soft_pwm_dutycycle(100); //turn on led with full brightness
+/*------------------continues processing--------------------------*/
+for(;;){
+    lcd_print(1,(uint8_t*)"LT:");
+    ldr_val = adc_read(0);
+    ldr_val / =2;
+    lcd_print_num(LDR_INDEX,ldr_val);
+#if NODE1_ENABLE
+if(EYE_CLOSED){
+    lcd_print(8,(uint8_t*)"EYE CLOSED");
+    }
+else
+    {
+    lcd_print(8,(uint8_t*)"EYE OPEN  ");
+    }
+// #elif NODE2_ENABLE
+//// if(EYE_CLOSED){
+////
+//// lcd_print(8,(uint8_t*)"EYE CLOSED");
+//// }
+//// else {
+//// lcd_print(8,(uint8_t*)"EYE OPEN  ");
+////        }
+#endif
+delayMs(1500);
+/*-----------------transmitting data----------------*/
+#if NODE1_ENABLE
+if(EYE_CLOSED || HIGH_LIGHT)
+#elif NODE2_ENABLE
+if(HIGH_LIGHT)
+#endif
+    {
+     // soft_pwm_dutycycle(50); //reducing brightness
+#if NODE1_ENABLE
+     ENABLE_RF = LOW;
+     RF_MEDIUM = SEND_HIGH_BRIGHT1;
+     lcd_print(17,(uint8_t* )"HIGH BRIGHTNESS");
+     light_dim_flag1 = 1;
+#elif NODE2_ENABLE
+     ENABLE_RF = LOW;
+     RF_MEDIUM = SEND_HIGH_BRIGHT2;
+     lcd_print(17,(uint8_t* )"HIGH BRIGHTNESS");
+     light_dim_flag2 = 1;
+#endif
+     }
+else
+     {
+#if NODE1_ENABLE
+if(light_dim_flag1 == 1)
+     {
+     ENABLE_RF = LOW;
+     RF_MEDIUM = NONE;
+     light_dim_flag1 = 0;
+     delayMs(500);
+     }
+ENABLE_RF = HIGH;
+// RF_MEDIUM = SEND_NONE_NODE1; //none
+// lcd_print(17,(uint8_t* )"high brightness");
+#elif NODE2_ENABLE  
+if(light_dim_flag2 == 1)
+     {
+     ENABLE_RF = LOW;
+     RF_MEDIUM = NONE;
+     light_dim_flag2 = 0;
+     delayMs(500);
+     }
+ENABLE_RF = HIGH;
+// RF_MEDIUM = ; //none
+// lcd_print(17,(uint8_t* )"high brightness");
+#endif
+lcd_print(17,(uint8_t* )"                  ");
+     }
+/*-------------------receiving data---------------------*/
+#if NODE1_ENABLE
+if(RB4 == 0 && RB5 == 1 )
+     {
+     soft_pwm_dutycycle(5); //reducing brightness
+     lcd_print(17,(uint8_t* )"REDUCE BRIGHT1");
+     }
+#elif NODE2_ENABLE
+if(RB4 == 1 && RB5 == 0  )
+    {
+     soft_pwm_dutycycle(5); //reducing brightness
+     lcd_print(17,(uint8_t* )"REDUCE BRIGHT2");
+     }
+#endif
+else
+     {
+      soft_pwm_dutycycle(100);
+      }      }
+return (EXIT_SUCCESS);
+      }

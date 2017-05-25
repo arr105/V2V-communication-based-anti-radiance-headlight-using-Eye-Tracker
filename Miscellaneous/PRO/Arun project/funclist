@@ -1,0 +1,15 @@
+_setup_lcd_port: CODE, 1303 0 7
+_lcd_putn: CODE, 1728 0 125
+_lcd_puts: CODE, 1462 0 39
+_adc_res: CODE, 1344 0 27
+_adc_channel: CODE, 1371 0 28
+_main: CODE, 1853 0 195
+_DelayMs: CODE, 1399 0 30
+_lcd_clrscr: CODE, 1321 0 23
+___lwdiv: CODE, 1655 0 73
+_lcd_goto_pos: CODE, 1429 0 33
+___lwmod: CODE, 1594 0 61
+_lcd_write: CODE, 1546 0 48
+_adc_init: CODE, 1310 0 11
+_lcd_init: CODE, 1501 0 45
+Total: 745
